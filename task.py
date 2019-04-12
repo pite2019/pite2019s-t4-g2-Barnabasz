@@ -1,32 +1,33 @@
-#Write a library that contains a class that can represent any 2𝑥2 real matrice. 
-#Include two functions to calculate the sum and product of two matrices. 
-#Next, write a program that imports this library module and use it to perform calculations.
-#Examples:
-#
-# matrix_1 = Matrix(4,5,6,7)
-# matrix_2 = Matrix(2,2,2,1)
-#
-# matrix_3 = matrix_2.add(matrix_1)
-#
-#Try to expand your implementation as best as you can. 
-#Think of as many features as you can, and try implementing them.
-#(If you want you can expand implementation to NxN matrix.)
-#Make intelligent use of pythons syntactic sugar (overloading, iterators, generators, etc)
-#Most of all: CREATE GOOD, RELIABLE, READABLE CODE.
-#The goal of this task is for you to SHOW YOUR BEST python programming skills.
-#Impress everyone with your skills, show off with your code.
-#
-#Your program must be runnable with command "python task.py".
-#Show some usecases of your library in the code (print some things)
-#
-#When you are done upload this code to your github repository. 
-#
-#Delete these comments before commit!
-#Good luck.
+#!/usr/bin/env python3
 
-from matrix import Matrix 
+class Matrix:
 
-matrix_1 = Matrix(4,5,6,7)
+	def __init__(self, a, b, c, d):
+		self.contener = [[a,b],[c,d]]
+		self.a, self.b, self.c, self.d = a, b, c, d
+
+	def __getitem__(self, key):
+		return self.contener[key]
+	def add(self, second):
+		a = self.contener[0][0] + second.contener[0][0]
+		b = self.contener[0][1] + second.contener[0][1]
+		c = self.contener[1][0] + second.contener[1][0]
+		d = self.contener[1][1] + second.contener[1][1]
+		return Matrix(a, b, c, d)
+
+	def __repr__(self):
+		return "[{}, {}]\n[{}, {}]".format(self.contener[0][0], self.contener[0][1], self.contener[1][0], self.contener[1][1])
+	
+	def prod(self, second):
+		a = self.contener[0][0] * second.contener[0][0] + self.contener[0][1] * second.contener[1][0]
+		b = self.contener[0][0] * second.contener[0][1] + self.contener[0][1] * second.contener[1][1]
+		c = self.contener[1][0] * second.contener[0][0] + self.contener[1][1] * second.contener[1][0]
+		d = self.contener[1][0] * second.contener[0][1] + self.contener[1][1] * second.contener[1][1]
+		return Matrix(a, b, c, d)
+
+
+def test():
+	matrix_1 = Matrix(4,5,6,7)
 	matrix_2 = Matrix(2,2,2,1)
 
 	matrix_3 = matrix_2.add(matrix_1)
@@ -35,3 +36,6 @@ matrix_1 = Matrix(4,5,6,7)
 	print(matrix_4)
 	matrix_1[0][1] = 23
 	print(matrix_1)
+
+if __name__ == "__main__":
+	test()
