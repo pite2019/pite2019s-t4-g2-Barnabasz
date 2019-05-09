@@ -36,15 +36,10 @@ class Matrix:
 		prod = [val * number for val in self.getList()]
 		return Matrix(*prod)
 
-	def cros_prod(self, second):
-		prod = []
-		for i, _ in enumerate(self):
-			for j, _ in enumerate(second[i]):
-				tmp = 0
-				for k, a in enumerate(self[i]):
-					tmp += a * second[k][j]
-				prod.append(tmp)
+	def mul_matrix(self, second):
+		prod = [val1 * val2 for val1, val2 in zip(self.getList(), second.getList())]
 		return Matrix(*prod)
+
 
 	def dot_prod(self, second):
 		prod = []
@@ -73,7 +68,7 @@ class Matrix:
 
 	def __mul__(self, second):
 		if isinstance(second, (Matrix)):
-			return self.cros_prod(second)
+			return self.mul_matrix(second)
 		elif isinstance(second, (int, float)):
 			return self.mul_number(second)
 
